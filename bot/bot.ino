@@ -66,16 +66,16 @@ void setEngine(int dir1, int dir2, int spd) {
 void processDir(int dir, int spd) {
   switch (dir) {
     case Dir::FORWARD:
-      setEngine(HIGH, HIGH, spd);
-      break;
-    case Dir::BACKWARD:
-      setEngine(LOW, LOW, spd);
-      break;
-    case Dir::RIGHT:
       setEngine(HIGH, LOW, spd);
       break;
+    case Dir::BACKWARD:
+      setEngine(HIGH, LOW, spd);
+      break;
+    case Dir::RIGHT:
+      setEngine(LOW, LOW, spd);
+      break;
     case Dir::LEFT:
-      setEngine(LOW, HIGH, spd);
+      setEngine(HIGH, HIGH, spd);
       break;
     default:
       setEngine(HIGH, HIGH, 0);

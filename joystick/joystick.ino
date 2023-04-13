@@ -49,24 +49,24 @@ void loop() {
   }
   else if (xPosition < DEAD_LOW) {
     // go backward
-    //    Serial.println("BACKWARD");
+    Serial.println("BACKWARD");
     direction = Dir::BACKWARD;
     speed = map(xPosition, DEAD_LOW, 0, 5, 255);
   }
   else if (yPosition > DEAD_HIGH) {
     // go right
-    //    Serial.println("RIGHT");
+    Serial.println("RIGHT");
     direction = Dir::RIGHT;
     speed = 255;
   }
   else if (yPosition < DEAD_LOW) {
     // go left
-    //    Serial.println("LEFT");
+    Serial.println("LEFT");
     direction = Dir::LEFT;
     speed = 255;
   }
   else {
-    //    Serial.println("NO");
+    Serial.println("NO");
     direction = Dir::NO;
     speed = 0;
   }
@@ -76,9 +76,10 @@ void loop() {
   data[2] = !buttonState;
   data[3] = tumblrState;
   data[4] = ptmrState;
-  radio_gaga.write(&data, sizeof(data)); // check delivery: if(radio.write(&data, sizeof(data)))
+  if (radio_gaga.write(&data, sizeof(data)))
+    Serial.println("SEND");// check delivery: if(radio.write(&data, sizeof(data)))
 
-  //  Serial.println(buttonState);
+  Serial.println(buttonState);
   //  Serial.println(speed);
   delay(100);
 }
