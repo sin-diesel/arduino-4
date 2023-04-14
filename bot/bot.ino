@@ -1,9 +1,11 @@
 #include <Servo.h>
-
+#include "FastLED.h"
 #include "common.h"
 
 RF24 radio_gugu(9, 10);
 int data[5];
+constexpr int NUM_LEDS = 5;
+CRGB leds[NUM_LEDS];
 
 struct ServAngle {
   Servo servo;
@@ -15,6 +17,7 @@ struct ServAngle {
 } serv;
 
 constexpr int servoPin = 2;
+constexpr int ledPin = 3;
 
 void setup() {
   Serial.begin(9600);
@@ -27,6 +30,8 @@ void setup() {
   for (int i = 4; i < 8; ++i) {
     pinMode(i, OUTPUT);
   }
+  FastLED.addLeds<WS2811, ledPin, GRB>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
+  FastLED.setBrightness(100);
 
   Serial.println("RADIO GUGU START");
 
@@ -37,11 +42,19 @@ constexpr int DIR_1 = 4;
 constexpr int SPEED_2 = 6;
 constexpr int DIR_2 = 7;
 
-
+byte counter = 0;
 void loop() {
+
+  for (int i = 0; i < NUM_LEDS; i++ ) {         // от 0 до первой трети
+    leds[i] = CHSV(counter + i * 2, 255, 255);  // HSV. Увеличивать HUE (цвет)
+    // умножение i уменьшает шаг радуги
+  }
+  counter++;        // counter меняется от 0 до 255 (тип данных byte)
+  FastLED.show();
+  delay(5); 
+
   if (!radio_gugu.available())
     return;
-
   radio_gugu.read(&data, sizeof(data));
   Serial.println("RADIO GUGU");
   auto btnState = data[2];
