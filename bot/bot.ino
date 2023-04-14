@@ -51,7 +51,7 @@ void loop() {
   }
   counter++;        // counter меняется от 0 до 255 (тип данных byte)
   FastLED.show();
-  delay(5); 
+//  delay(5); 
 
   if (!radio_gugu.available())
     return;
@@ -79,16 +79,16 @@ void setEngine(int dir1, int dir2, int spd) {
 void processDir(int dir, int spd) {
   switch (dir) {
     case Dir::FORWARD:
-      setEngine(HIGH, LOW, spd);
-      break;
+      setEn      break;
+gine(HIGH, LOW, spd);
     case Dir::BACKWARD:
-      setEngine(HIGH, LOW, spd);
+      setEngine(LOW, HIGH, spd);
       break;
     case Dir::RIGHT:
-      setEngine(LOW, LOW, spd);
+      setEngine(HIGH, HIGH, spd);
       break;
     case Dir::LEFT:
-      setEngine(HIGH, HIGH, spd);
+      setEngine(LOW, LOW, spd);
       break;
     default:
       setEngine(HIGH, HIGH, 0);
