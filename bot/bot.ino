@@ -79,8 +79,8 @@ void setEngine(int dir1, int dir2, int spd) {
 void processDir(int dir, int spd) {
   switch (dir) {
     case Dir::FORWARD:
-      setEn      break;
-gine(HIGH, LOW, spd);
+      setEngine(HIGH, LOW, spd);
+      break;
     case Dir::BACKWARD:
       setEngine(LOW, HIGH, spd);
       break;
